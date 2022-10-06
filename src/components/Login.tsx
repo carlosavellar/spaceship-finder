@@ -1,8 +1,10 @@
 import React from 'react';
 import { AuthService } from '../services/AuthServices';
+import { User } from './../model/Model';
 
 interface LoginProps {
   authService: AuthService;
+  setUser: (user: User) => void;
 }
 
 interface LoginState {
@@ -38,6 +40,7 @@ export class Login extends React.Component<LoginProps, LoginState> {
     this.setState({ loginAttempted: true });
     if (result) {
       this.setState({ loginSuccesfull: true });
+      this.props.setUser(result);
     } else {
       this.setState({ loginSuccesfull: false });
     }
