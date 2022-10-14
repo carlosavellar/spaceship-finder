@@ -30,16 +30,18 @@ export class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <NavBar user={this.state.user} />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login authService={this.authService} setUser={this.setUser} />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+      <div className="App">
+        <BrowserRouter>
+          <div>
+            <NavBar user={this.state.user} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login authService={this.authService} setUser={this.setUser} />} />
+              <Route path="/profile" element={<Profile authService={this.authService} user={this.state.user} />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </div>
     );
   }
 }
