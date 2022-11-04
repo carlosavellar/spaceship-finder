@@ -2,6 +2,8 @@ import React from 'react';
 import { User } from './../models/user';
 import { AuthService } from './../services/auth';
 import { Login } from './Login';
+import { NavBar } from '../routes/NavBar';
+import { Router, Switch, Route } from 'react-router-dom';
 
 interface AppState {
   user: User | undefined;
@@ -23,7 +25,8 @@ export class App extends React.Component<{}, AppState> {
   private authService: AuthService = new AuthService();
   render() {
     return (
-      <div>
+      <div className="wrapper">
+        <NavBar user={this.state.user} />
         <h2>Please login</h2>
         <Login authService={this.authService} setUser={this.setUser} />
       </div>
