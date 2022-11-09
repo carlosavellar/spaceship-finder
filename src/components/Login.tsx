@@ -1,6 +1,11 @@
 import React, { SyntheticEvent } from 'react';
 import { AuthService } from '../services/auth';
 import { User } from '../models/user';
+import history from '../history';
+import { createBrowserRouter } from 'react-router-dom';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+
+const routers = createBrowserRouter([{ path: '/profile' }]);
 
 interface LoginProps {
   authService: AuthService;
@@ -48,6 +53,7 @@ export class Login extends React.Component<LoginProps, LoginState> {
       this.setState({ isLoginSuccessful: false });
       console.log('Wrong login');
     }
+    history.push('/profilen');
   }
 
   render() {
@@ -61,6 +67,7 @@ export class Login extends React.Component<LoginProps, LoginState> {
     }
     return (
       <div>
+        <h2>Please login</h2>
         <form onSubmit={(e) => this.handlerSubmit(e)}>
           <input value={this.state.userName} type="text" onChange={(e) => this.handlerEnteredUserName(e)} />
           <br />

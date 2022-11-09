@@ -1,7 +1,8 @@
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
 import { User } from '../models/user';
+import history from '../history';
 
 export class NavBar extends React.Component<{
   user: User | undefined;
@@ -9,15 +10,22 @@ export class NavBar extends React.Component<{
   render() {
     let isUserLogged: any;
     if (this.props.user) {
-      isUserLogged = <Link to="/">Logout {this.props.user.userName}</Link>;
+      isUserLogged = (
+        <div style={{ float: 'right' }}>
+          <Link to="/profile">{this.props.user.userName}</Link>
+          <Link to="/logout" style={{ float: 'right' }}>
+            Logout
+          </Link>
+        </div>
+      );
     } else {
-      isUserLogged = <Link to="/">Login </Link>;
+      isUserLogged = <Link to="/login">Login </Link>;
     }
     return (
       <div className="navbar">
         <nav>
           <Link to="/">Home</Link>
-          <Link to="/profile">Home</Link>
+          <Link to="/profile">Profile</Link>
           {isUserLogged}
         </nav>
       </div>

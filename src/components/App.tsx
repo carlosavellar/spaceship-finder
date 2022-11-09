@@ -1,10 +1,13 @@
 import React from 'react';
 import { User } from './../models/user';
 import { AuthService } from './../services/auth';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Login } from './Login';
-import { NavBar } from '../routes/NavBar';
-import { Router, Switch, Route } from 'react-router-dom';
-
+import { NavBar } from './NavBar';
+import { Home } from './Home';
+import './App.css';
+import { Profile } from './Profile';
+import { Logout } from './Logout';
 interface AppState {
   user: User | undefined;
 }
@@ -12,6 +15,11 @@ interface AppState {
 export class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
+
+    this.state = {
+      user: undefined,
+    };
+
     this.setUser = this.setUser.bind(this);
   }
 
@@ -23,12 +31,19 @@ export class App extends React.Component<{}, AppState> {
   }
 
   private authService: AuthService = new AuthService();
+
   render() {
     return (
       <div className="wrapper">
-        <NavBar user={this.state.user} />
-        <h2>Please login</h2>
-        <Login authService={this.authService} setUser={this.setUser} />
+        <BrowserRouter>
+          <NavBar user={this.state.user} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/login" element={<Login authService={this.authService} setUser={this.setUser} />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     );
   }
