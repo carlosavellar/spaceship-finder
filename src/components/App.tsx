@@ -7,6 +7,7 @@ import { User } from '../model/user';
 import { Profile } from './Profile';
 import { Home } from './Home';
 import { Navbar } from './Navbar';
+import { Logout } from './Logout';
 
 interface AppState {
   user: User | undefined;
@@ -30,7 +31,7 @@ export class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <div className="App">
+      <div className="wrapper">
         <BrowserRouter>
           <div>
             <Navbar user={this.state.user} />
@@ -38,6 +39,7 @@ export class App extends React.Component<{}, AppState> {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login authService={this.authService} setUser={this.setUser} />} />
               <Route path="/profile" element={<Profile authService={this.authService} user={this.state.user} />} />
+              <Route path="/logout" element={<Logout />} />
             </Routes>
           </div>
         </BrowserRouter>

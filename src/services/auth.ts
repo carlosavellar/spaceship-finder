@@ -1,4 +1,5 @@
-import { User } from '../model/user';
+import { Profile } from '../components/Profile';
+import { User, UserAttributes } from '../model/user';
 
 export class AuthService {
   async login(userName: string, password: string): Promise<User | undefined> {
@@ -10,5 +11,26 @@ export class AuthService {
     } else {
       return undefined;
     }
+  }
+
+  async getUserPrtofile(user: User): Promise<UserAttributes[]> {
+    let result: UserAttributes[] = [];
+    if (result) {
+      result.push(
+        {
+          Name: 'Description',
+          Value: 'Dev user',
+        },
+        {
+          Name: 'job',
+          Value: 'Engineer',
+        },
+        {
+          Name: 'agro',
+          Value: 'Best user ever',
+        }
+      );
+    }
+    return result;
   }
 }
