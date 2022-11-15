@@ -13,7 +13,7 @@ export class ConfirmModalComponent extends React.Component<ConfirmModalComnponen
     } else {
       return (
         <div className="modal">
-          <div className="modalContent">
+          <div className="modal-content">
             <div>{this.props.content}</div>
             <button onClick={() => this.props.close()}>Ok, close.</button>
           </div>
