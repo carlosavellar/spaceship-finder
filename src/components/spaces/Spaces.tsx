@@ -2,9 +2,12 @@ import React from 'react';
 import { Space } from '../../model/user';
 import { DataService } from '../../services/DataService';
 import { SpacesComponent } from './SpacesComponent';
-
+import { ConfirmModalComponent } from './ConfirmModalComponent';
+import { throws } from 'assert';
 interface SpacesState {
   spaces: Space[];
+  showModal: boolean;
+  modalContent: string;
 }
 
 interface SpacesProps {
@@ -16,7 +19,12 @@ export default class Spaces extends React.Component<SpacesProps, SpacesState> {
     super(props);
     this.state = {
       spaces: [],
+      showModal: false,
+      modalContent: '',
     };
+
+    this.closeModal = this.closeModal.bind(this);
+    this.reserveSpace = this.reserveSpace.bind(this);
   }
 
   async componentDidMount() {
@@ -26,7 +34,20 @@ export default class Spaces extends React.Component<SpacesProps, SpacesState> {
     });
   }
 
-  private reserveSpace(spaceId: string) {}
+  private async reserveSpace(spaceId: string) {
+    const spaces = await this.props.dataService.reserveSpace(spaceId);
+    if (spaces) {
+      this.setState({
+        modalContent: `You selecte the space with the ${spaceId} id.`,
+        showModal: true,
+      });
+    } else {
+      this.setState({
+        modalContent: `There is not  space with ${spaceId} id.`,
+        showModal: true,
+      });
+    }
+  }
 
   private renderSpaces() {
     const rows = [];
@@ -43,12 +64,23 @@ export default class Spaces extends React.Component<SpacesProps, SpacesState> {
     }
     return rows;
   }
+
+  private closeModal() {
+    this.setState({
+      showModal: false,
+    });
+  }
   render() {
     return (
       <div>
         <div>
           <h2>Welcome to Spaces page</h2>
           {this.renderSpaces()}
+          <ConfirmModalComponent
+            close={this.closeModal}
+            content={this.state.modalContent}
+            show={this.state.showModal}
+          />
         </div>
       </div>
     );
