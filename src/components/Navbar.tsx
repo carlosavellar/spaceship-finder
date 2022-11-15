@@ -23,6 +23,7 @@ export class Navbar extends React.Component<{ user: User | undefined }> {
       <nav className="navbar">
         <Link to="/">Home</Link>
         <Link to="/Profile">Profile</Link>
+        <Link to="/spaces">Spaces</Link>
         {loginLogout}
       </nav>
     );
