@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from '../models/user';
-import { AuthService } from './../service/authService';
+import { AuthService } from '../auth/authService';
 
 interface LoginState {
   userName: string;

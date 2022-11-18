@@ -10,9 +10,20 @@ export class AuthService {
     }
   }
 
-  public async getUserAtributes(user: User): Promise<UserAttributes[]> {
+  public async getUserProfile(user: User): Promise<UserAttributes[]> {
     const results: UserAttributes[] = [];
-    const attributes = await Auth;
-    results.push(...user);
+    results.push({
+      name: 'Position',
+      value: 'Descancer',
+    });
+    results.push({
+      name: 'Skill',
+      value: 'Developer',
+    });
+    results.push({
+      name: 'Country',
+      value: 'Jamaica Lovers',
+    });
+    return results;
   }
 }

@@ -4,6 +4,6 @@ export interface User {
 }
 
 export interface UserAttributes {
-  nome: string;
+  name: string;
   value: string;
 }

@@ -20,11 +20,11 @@ export class Navbar extends React.Component<NavbarProps> {
       loginLogout = <Link to="login">Login</Link>;
     }
     return (
-      <div className="navbar">
+      <nav className="navbar">
         <Link to="/">Home</Link>
         <Link to="/profile">Profile</Link>
         {loginLogout}
-      </div>
+      </nav>
     );
   }
 }

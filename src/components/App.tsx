@@ -2,7 +2,7 @@ import React from 'react';
 import { User } from '../models/user';
 import './App.css';
 import { Login } from './Login';
-import { AuthService } from './../service/authService';
+import { AuthService } from '../auth/authService';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Profile } from './Profile';
@@ -30,14 +30,14 @@ export class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <div className="App">
+      <div className="wrapper">
         <BrowserRouter>
           <div>
             <Navbar user={this.state.user} />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login setUser={this.setUser} authService={this.authService} />} />
-              <Route path="/Profile" element={<Profile />} />
+              <Route path="/Profile" element={<Profile authService={this.authService} user={this.state.user} />} />
             </Routes>
           </div>
         </BrowserRouter>
