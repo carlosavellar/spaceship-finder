@@ -7,6 +7,7 @@ interface SpaceComponentProps {
   location: string;
   spaceId: string;
   photoUrl?: string;
+  renderSpace: (spaceId: string) => void;
 }
 
 export class SpaceComponent extends React.Component<SpaceComponentProps> {
@@ -16,6 +17,11 @@ export class SpaceComponent extends React.Component<SpaceComponentProps> {
     } else {
       return <img src={genericImage} alt="" />;
     }
+  }
+
+  private renderSpace(event: any) {
+    event.preventDefault();
+    this.props.renderSpace(this.props.spaceId);
   }
 
   render() {
@@ -29,6 +35,8 @@ export class SpaceComponent extends React.Component<SpaceComponentProps> {
           <label className="location">{this.props.location}</label>
           <br />
           <label className="spaceId">{this.props.spaceId}</label>
+          <br />
+          <button onClick={(event) => this.renderSpace(event)}>Reserve</button>
         </div>
       </div>
     );

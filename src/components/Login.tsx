@@ -34,10 +34,16 @@ export class Login extends React.Component<LoginProps, LoginState> {
     this.setState({ password: event.target.value });
   }
 
+  private clearInputs() {
+    this.setState({ userName: '' });
+    this.setState({ password: '' });
+  }
+
   private async handlerSubmit(event: any) {
     event.preventDefault();
     const result = await this.props.authService.login(this.state.userName, this.state.password);
     this.setState({ isLogginAttempted: true });
+    this.clearInputs();
     if (result) {
       this.setState({ isLogginSuccessful: true });
       this.props.setUser(result);
