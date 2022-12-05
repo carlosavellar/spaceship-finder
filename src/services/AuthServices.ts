@@ -1,14 +1,14 @@
-import { User } from './../model/Model';
+import { User } from './../models/user';
 
 export class AuthService {
   public async login(userName: string, password: string): Promise<User | undefined> {
-    if (userName === 'carlos' && password === '1234') {
+    if (userName === 'carlos' && password === '123') {
       return {
         userName,
         email: 'carlos.avellar@gmail.com',
       };
     } else {
-      return undefined;
+      throw new Error('Error motha fucka ');
     }
   }
 }
