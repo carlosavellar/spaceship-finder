@@ -1,8 +1,8 @@
-import React from 'react';
-import { Space } from '../../models/space';
-import { DataService } from '../../service/dataService';
-import { ConfirmationModalComponent } from './ConfirmationModalComponent';
-import { SpaceComponent } from './SpaceComponent';
+import React from "react";
+import { Space } from "../../models/space";
+import { DataService } from "../../service/dataService";
+import { ConfirmationModalComponent } from "./ConfirmationModalComponent";
+import { SpaceComponent } from "./SpaceComponent";
 
 interface SpaceState {
   spaces: Space[];
@@ -20,9 +20,10 @@ export class Spaces extends React.Component<SpaceProps, SpaceState> {
     this.state = {
       spaces: [],
       showModal: false,
-      modalContent: '',
+      modalContent: "",
     };
-    this.handlerReservSpace = this.handlerReservSpace.bind(this);
+    this.handlerReserveSpace = this.handlerReserveSpace.bind(this);
+    this.handlerCloseModal = this.handlerCloseModal.bind(this);
   }
 
   async componentDidMount() {
@@ -39,7 +40,7 @@ export class Spaces extends React.Component<SpaceProps, SpaceState> {
           name={space.name}
           spaceId={space.spaceId}
           location={space.location}
-          renderSpace={this.handlerReservSpace}
+          renderSpace={this.handlerReserveSpace}
         />
       );
     }
@@ -47,13 +48,17 @@ export class Spaces extends React.Component<SpaceProps, SpaceState> {
   }
 
   private handlerCloseModal() {
+    debugger;
     this.setState({ showModal: false });
   }
 
-  private async handlerReservSpace(spaceId: string) {
+  private async handlerReserveSpace(spaceId: string) {
     const space = await this.props.dataService.reserveSpace(spaceId);
     if (space) {
-      this.setState({ modalContent: `🙋You selected the space of id: ${spaceId}`, showModal: true });
+      this.setState({
+        modalContent: `🙋You selected the space of id: ${spaceId}`,
+        showModal: true,
+      });
     } else {
       this.setState({
         modalContent: `🌆There's no space of id: ${spaceId}`,
@@ -66,7 +71,7 @@ export class Spaces extends React.Component<SpaceProps, SpaceState> {
       <div>
         <div>
           <h1>Spaces</h1>
-          <div>{this.renderSpaces()}</div>
+          <div style={{ display: "flex" }}>{this.renderSpaces()}</div>
           <ConfirmationModalComponent
             close={this.handlerCloseModal}
             show={this.state.showModal}

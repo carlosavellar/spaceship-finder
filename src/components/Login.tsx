@@ -1,6 +1,6 @@
-import React from 'react';
-import { User } from '../models/user';
-import { AuthService } from '../auth/authService';
+import React from "react";
+import { User } from "../models/user";
+import { AuthService } from "../auth/authService";
 
 interface LoginState {
   userName: string;
@@ -20,8 +20,8 @@ interface CustomInput {
 
 export class Login extends React.Component<LoginProps, LoginState> {
   state: LoginState = {
-    userName: '',
-    password: '',
+    userName: "",
+    password: "",
     isLogginAttempted: false,
     isLogginSuccessful: false,
   };
@@ -35,13 +35,16 @@ export class Login extends React.Component<LoginProps, LoginState> {
   }
 
   private clearInputs() {
-    this.setState({ userName: '' });
-    this.setState({ password: '' });
+    this.setState({ userName: "" });
+    this.setState({ password: "" });
   }
 
   private async handlerSubmit(event: any) {
     event.preventDefault();
-    const result = await this.props.authService.login(this.state.userName, this.state.password);
+    const result = await this.props.authService.login(
+      this.state.userName,
+      this.state.password
+    );
     this.setState({ isLogginAttempted: true });
     this.clearInputs();
     if (result) {
@@ -56,20 +59,32 @@ export class Login extends React.Component<LoginProps, LoginState> {
     let loginLogout = undefined;
     if (this.state.isLogginAttempted) {
       if (this.state.isLogginSuccessful) {
-        loginLogout = <div style={{ color: 'green', fontWeight: 'bold' }}>Login ok</div>;
+        loginLogout = (
+          <div style={{ color: "green", fontWeight: "bold" }}>Login ok</div>
+        );
       } else if (!this.state.isLogginSuccessful) {
-        loginLogout = <div style={{ color: 'red', fontWeight: 'bold' }}>Login not ok</div>;
+        loginLogout = (
+          <div style={{ color: "red", fontWeight: "bold" }}>Login not ok</div>
+        );
       }
     }
 
     return (
       <div>
-        <h1>Login</h1>
+        <h2>Login</h2>
         <form onSubmit={(e) => this.handlerSubmit(e)}>
           <br />
-          <input type="text" value={this.state.userName} onChange={(e) => this.handlerUserName(e)} />
+          <input
+            type="text"
+            value={this.state.userName}
+            onChange={(e) => this.handlerUserName(e)}
+          />
           <br />
-          <input type="password" value={this.state.password} onChange={(e) => this.handlerPassword(e)} />
+          <input
+            type="password"
+            value={this.state.password}
+            onChange={(e) => this.handlerPassword(e)}
+          />
           <br />
           <button type="submit">Login</button>
           {loginLogout}
