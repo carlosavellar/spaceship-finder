@@ -2,8 +2,18 @@ import React from 'react';
 import { User, UserAttributes } from '../models/user';
 import { AuthService } from '../auth/AuthServices';
 
-export class Profile extends React.Component<{ authSetrvice: AuthService }, { user: User | undefined }> {
-  state: UserAttributes[] = {};
+interface ProfileState {
+  userAttributes: UserAttributes[];
+}
+interface ProfileProps {
+  user: User | undefined;
+  authService: AuthService;
+}
+
+export class Profile extends React.Component<ProfileProps, ProfileState> {
+  state: ProfileState = {
+    userAttributes: [],
+  };
   render() {
     return (
       <div>

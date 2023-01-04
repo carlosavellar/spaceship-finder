@@ -1,4 +1,4 @@
-import { User, UserAtributes } from '../models/user';
+import { User, UserAttributes } from '../models/user';
 
 export class AuthService {
   public async login(userName: string, password: string): Promise<User | undefined> {
@@ -12,8 +12,8 @@ export class AuthService {
     }
   }
 
-  public async getUserProfile(): Promise<UserAtributes[]> {
-    const result: UserAtributes[] = [];
+  public async getUserProfile(): Promise<UserAttributes[]> {
+    const result: UserAttributes[] = [];
     result.push({
       name: 'Profession',
       value: 'Blacksmith',
